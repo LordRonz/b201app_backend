@@ -7,7 +7,7 @@ import (
 )
 
 type User struct {
-	ID    string `json:"id" example:"1"`
+	ID    int    `gorm:"type:SERIAL;PRIMARY_KEY" json:"id" example:"1"`
 	Name  string `gorm:"type:varchar;NOT NULL" json:"name" example:"Amogus"`
 	Email string `gorm:"type:varchar;NOT NULL" json:"email" example:"amogus@mail.com"`
 }
@@ -18,6 +18,19 @@ func (u *User) Render(w http.ResponseWriter, r *http.Request) error {
 
 // Bind implements the the github.com/go-chi/render.Binder interface
 func (u *User) Bind(r *http.Request) error {
+	return nil
+}
+
+// UserList contains a list of users
+type UserList struct {
+	// A list of users
+	Items []*User `json:"items"`
+	// The id to query the next page
+	NextPageID int `json:"next_page_id,omitempty" example:"dsalj91"`
+} // @name UserList
+
+// Render implements the github.com/go-chi/render.Renderer interface
+func (a *UserList) Render(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
