@@ -15,7 +15,7 @@ type ClientInterface interface {
 	Ping() error
 	Connect(connectionString string) error
 	GetUserByID(id int) *types.User
-	SetUser(article *types.User) error
+	SetUser(user *types.User) error
 	GetUsers(pageID int) *types.UserList
 }
 
@@ -57,7 +57,7 @@ func (c *Client) autoMigrate() {
 	c.Client.AutoMigrate(&types.User{})
 }
 
-// GetUserByID queries an article from the database
+// GetUserByID queries a user from the database
 func (c *Client) GetUserByID(id int) *types.User {
 	user := &types.User{}
 

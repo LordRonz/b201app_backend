@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"go.uber.org/zap"
 	"github.com/go-chi/cors"
+	"go.uber.org/zap"
 
 	m "github.com/lordronz/b201app_backend/pkg/middleware"
 )
@@ -48,7 +48,7 @@ func buildTree(r *chi.Mux) {
 			r.Use(m.User)
 			r.Get("/", GetUser)
 		})
-		r.Put("/", PutUser)
+		r.With(m.Validate).Put("/", PutUser)
 	})
 }
 

@@ -2,14 +2,18 @@ package types
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/go-chi/render"
 )
 
 type User struct {
-	ID    int    `gorm:"type:SERIAL;PRIMARY_KEY" json:"id" example:"1"`
-	Name  string `gorm:"type:varchar;NOT NULL" json:"name" example:"Amogus"`
-	Email string `gorm:"type:varchar;NOT NULL" json:"email" example:"amogus@mail.com"`
+	ID        uint      `gorm:"type:SERIAL;PRIMARY_KEY" json:"id" example:"1"`
+	Name      string    `gorm:"type:varchar;NOT NULL" json:"name" example:"Amogus"`
+	Email     string    `gorm:"type:varchar;NOT NULL" json:"email" example:"amogus@mail.com"`
+	NRP       string    `gorm:"type:varchar(20);NOT NULL" json:"nrp"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func (u *User) Render(w http.ResponseWriter, r *http.Request) error {
@@ -26,7 +30,7 @@ type UserList struct {
 	// A list of users
 	Items []*User `json:"items"`
 	// The id to query the next page
-	NextPageID int `json:"next_page_id,omitempty" example:"dsalj91"`
+	NextPageID uint `json:"nextPageId,omitempty" example:"69"`
 } // @name UserList
 
 // Render implements the github.com/go-chi/render.Renderer interface
