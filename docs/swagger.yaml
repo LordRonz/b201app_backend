@@ -1,0 +1,133 @@
+basePath: /
+definitions:
+  ErrorResponse:
+    properties:
+      code:
+        description: application-specific error code
+        example: 404
+        type: integer
+      error:
+        description: application-level error message, for debugging
+        example: The requested resource was not found on the server
+        type: string
+      status:
+        description: user-level status message
+        example: Resource not found.
+        type: string
+    type: object
+  UserList:
+    properties:
+      items:
+        description: A list of users
+        items:
+          $ref: '#/definitions/types.User'
+        type: array
+      nextPageId:
+        description: The id to query the next page
+        example: 69
+        type: integer
+    type: object
+  types.User:
+    properties:
+      createdAt:
+        type: string
+      email:
+        example: amogus@mail.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: Amogus
+        type: string
+      nrp:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: example.com
+info:
+  contact:
+    email: b201crew@gmail.com
+    name: B201Crew
+  description: |-
+    This API is a sample go-api.
+    It also does this.
+  title: B201 App API
+paths:
+  /users:
+    get:
+      description: Get all users stored in the database
+      parameters:
+      - description: id of the page to be retrieved
+        in: query
+        name: page_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/UserList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all users
+      tags:
+      - Users
+    put:
+      description: |-
+        PutUser writes an user to the database
+        To write a new user, leave the id empty. To update an existing one, use the id of the user to be updated
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add an user to the database
+      tags:
+      - Users
+  /users/{id}:
+    get:
+      description: GetUser returns a single user by id
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get user by id
+      tags:
+      - Users
+swagger: "2.0"

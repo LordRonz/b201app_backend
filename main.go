@@ -10,6 +10,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/lordronz/b201app_backend/pkg/api"
 	"github.com/lordronz/b201app_backend/pkg/db"
+	"github.com/lordronz/b201app_backend/docs"
 	"go.uber.org/zap"
 )
 
@@ -31,6 +32,8 @@ func init() {
 }
 
 func main() {
+	docs.SwaggerInfo.Version = "1.0.0"
+
 	// gracefully exit on keyboard interrupt
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
