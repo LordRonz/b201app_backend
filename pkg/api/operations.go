@@ -39,7 +39,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
 func PutUser(w http.ResponseWriter, r *http.Request) {
-	body := r.Context().Value("put_user").(*types.PutUserValidation);
+	body := r.Context().Value("put_user").(*types.PutUserValidation)
 	user := &types.User{Name: body.Name, Email: body.Email, NRP: body.NRP}
 
 	if err := DBClient.SetUser(user); err != nil {
