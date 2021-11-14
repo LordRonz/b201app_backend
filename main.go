@@ -8,9 +8,11 @@ import (
 	"syscall"
 
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/lordronz/b201app_backend/config"
+	"github.com/lordronz/b201app_backend/docs"
 	"github.com/lordronz/b201app_backend/pkg/api"
 	"github.com/lordronz/b201app_backend/pkg/db"
-	"github.com/lordronz/b201app_backend/docs"
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
@@ -18,15 +20,20 @@ var addr string
 var postgresDSN string
 
 func init() {
-	addr = os.Getenv("ADDRESS")
+	if err := config.LoadConfig("."); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-	dbUser := os.Getenv("DB_USER")
-	dbHost := os.Getenv("DB_HOST")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	dbPort := os.Getenv("DB_PORT")
-	dbSSLMode := os.Getenv("DB_SSLMODE")
-	dbTimezone := os.Getenv("DB_TIMEZONE")
+	addr = viper.GetString("address")
+
+	dbUser := viper.GetString("db_user")
+	dbHost := viper.GetString("db_host")
+	dbPassword := viper.GetString("db_password")
+	dbName := viper.GetString("db_name")
+	dbPort := viper.GetString("db_port")
+	dbSSLMode := viper.GetString("db_sslmode")
+	dbTimezone := viper.GetString("db_timezone")
 
 	postgresDSN = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s", dbHost, dbUser, dbPassword, dbName, dbPort, dbSSLMode, dbTimezone)
 }

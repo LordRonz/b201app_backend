@@ -10,7 +10,7 @@ import (
 	"github.com/lordronz/b201app_backend/pkg/types"
 )
 
-var validate *validator.Validate = validator.New();
+var validate *validator.Validate = validator.New()
 
 // Pagination middleware is used to extract the next page id from the url query
 func Validate(next http.Handler) http.Handler {
