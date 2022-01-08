@@ -1,0 +1,14 @@
+{
+  "name": "b201_app_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:LordRonz/b201app_backend.git",
+  "author": "B201 Crew <b201crew@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^7.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
